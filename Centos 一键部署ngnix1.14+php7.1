@@ -1,0 +1,32 @@
+#!/bin/bash
+#Configuration file path(配置文件路径)
+NGINX_CFP=/usr/local/nginx/conf/nginx.conf
+NGINX_BAK=/usr/local/nginx/conf/nginx.conf.bak
+PHP_CFP=/usr/local/php/etc/php-fpm.conf
+PHP_CFPY=./php-7.1.29/sapi/fpm/php-fpm.conf
+PHP_DEFAULT=/usr/local/php/etc/php-fpm.d/www.conf.default
+PHP_CONF=/usr/local/php/etc/php-fpm.d/www.conf
+#Startup path(启动路径)
+NGINX_SP=/usr/local/nginx/sbin/nginx
+PHP_SP=/usr/local/php/sbin/php-fpm
+
+#nginx + php7.1 部署环境
+#nginx-1.14.2.tar.gz php-7.1.30.tar.gz 选择源码包安装
+#安装依赖包
+yum -y install gcc automake autoconf libxml2-devel libtool make gcc gcc-c++ pcre pcre-devel zlib zlib-devel openssl openssl-devel
+
+#下载nginx php7.1 源码包
+yum -y install wget 
+wget http://nginx.org/download/nginx-1.14.2.tar.gz
+if [ $? -eq 0 ];then
+echo “-------------nginx安装成功-------------------------”
+else
+echo “-------------nginx安装失败-------------------------”
+exit
+fi
+wget http://ahdx.down.chinaz.com/201905/php_v7.1.29.tar.gz
+if [ $? -eq 0 ];then
+echo “-------------php7.1安装成功-------------------------”
+else
+echo “-------------php7.1安装失败-------------------------”
+exit
