@@ -30,3 +30,37 @@ echo “-------------php7.1安装成功-------------------------”
 else
 echo “-------------php7.1安装失败-------------------------”
 exit
+fi
+#解压源码包
+tar -xf nginx-1.14.2.tar.gz && echo “-----解压成功-------”
+tar -xf php_v7.1.29.tar.gz && echo “-----解压成功-------”
+#编译安装nginx
+cd nginx-1.14.2
+./configure
+make && make install
+#编译安装php7.1
+cd …/php-7.1.29
+./configure --prefix=/usr/local/php --with-config-file-path=/usr/local/php/etc --enable-fpm
+make && make install
+cp $PHP_CFPY $PHP_CFP
+cp $PHP_DEFAULT $PHP_CONF
+#备份nginx的配置文件
+cp $NGINX_CFP $NGINX_BAK
+#利用sed工具修改nginx的配置文件
+sed -i ‘/1*index/a\ if ( -f $request_filename){\n break;\n }\n if ( !-e KaTeX parse error: Expected '}', got '\n' at position 20: …est_filename) {\̲n̲ ̲rewrite ^(.*) /index.php/$1 last;\n break;\n }\n }’ $NGINX_CFP && echo “--------------修改成功------------------”
+sed -i 73,79d $NGINX_CFP && echo “--------------修改成功------------------”
+
+sed -i ‘N;72a\ location ~ .php$ {\n root html/public;\n fastcgi_pass 127.0.0.1:9000;\n fastcgi_index index.php;\n fastcgi_split_path_info ^(.+.php)(/.+)$;\n fastcgi_param PATH_INFO KaTeX parse error: Expected 'EOF', got '\n' at position 19: …tcgi_path_info;\̲n̲ ̲fastcgi_param …fastcgi_script_name;\n fastcgi_param PATH_TRANSLATED documentrootdocument_rootdocument 
+r
+​	
+ ootfastcgi_path_info;\n include fastcgi_params;\n }’ $NGINX_CFP && echo “--------------修改成功------------------”
+#启动nginx php服务
+$NGINX_SP
+$PHP_SP
+ss -ntulp | grep 80 && ss -ntulp | grep 9000
+if [ $? -eq 0 ];then
+echo “-------------Nginx and Php 服务启动成功-------------------------”
+else
+echo “-------------Nginx and Php 服务启动失败-------------------------”
+exit
+fi
