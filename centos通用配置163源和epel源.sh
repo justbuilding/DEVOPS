@@ -12,3 +12,6 @@ mv /etc/yum.repos.d/CentOS-Base.repo  /etc/yum.repos.d/CentOS-Base.repo.$(date -
 wget http://mirrors.163.com/.help/CentOS$sys_byte-Base-163.repo &&  mv CentOS$sys_byte-Base-163.repo CentOS-Base.repo
 
 yum install yum-plugin-fastestmirror -y
+
+# 配置epel源
+yum install -y epel-release
