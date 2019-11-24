@@ -39,8 +39,10 @@ sudo yum install docker-ce-<VERSION_STRING> docker-ce-cli-<VERSION_STRING> conta
 sudo systemctl start docker
 #Verify that Docker Engine - Community is installed correctly by running the hello-world image.
 sudo docker run hello-world
+echo "****************************"
 echo "安装完成,如果前面出现Hello from Docker!
 This message shows that your installation appears to be working correctly.表示测试运行docker的hello程序成功"
+echo "****************************"
 echo "如果想要启用docker-ce-nightly和docker-ce-test使用如下指令，默认不启用"
 echo "sudo yum-config-manager --enable docker-ce-nightly"
 echo "sudo yum-config-manager --enable docker-ce-test"
