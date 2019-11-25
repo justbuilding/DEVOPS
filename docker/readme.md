@@ -147,5 +147,3 @@ sudo systemctl restart docker
    
    查看是否有新的镜像名字：docker imgages
 ```
-
->>>>>>> f6bbf0a... 编写制作tomcat镜像自动脚本
