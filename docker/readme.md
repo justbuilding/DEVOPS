@@ -30,7 +30,7 @@ CentOS：手动启动
                     删除全部   docker rmi `docker images -q`
                     
 创建容器（‐i：交互式容器   ‐t：tty 终端    ‐d:后台运行，并且打印容器id）           
-                    docker run ‐‐name=u1 ubuntu 
+                    docker run ‐‐name=u1 ubuntu /bin/bash
                     docker run ‐i ‐t ‐‐name=u1 ubuntu /bin/bash 
                     docker run ‐i ‐t ‐d ‐‐name=u3 ubuntu /bin/bash
 进入容器             
@@ -39,7 +39,7 @@ CentOS：手动启动
 查看容器 
                     docker ps：查看正在运行的容器 
                     docker ps ‐a：查看运行过的容器（历史） 
-                    docker ps ‐l：最后一次运行的容器          
+                    docker ps ‐l：最后一次运行的容器      
 停止/启动容器         
                     docker start 容器名称/id 
                     docker stop 容器名称/id
@@ -68,6 +68,7 @@ CentOS：手动启动
 # 安装和配置
 
 ```
+<<<<<<< HEAD
 1.安装与验证是否可用（https://docs.docker.com/install/linux/docker-ce/centos/）
 sh docker_install.sh
 
@@ -76,6 +77,18 @@ sh docker_install.sh
 ‐ 阿里云（先加入阿里云开发者平台：https://dev.aliyun.com）
       登录》弹性计算的容器镜像服务》管理控制台》镜像加速器
       
+=======
+     sh docker_install.sh
+（官方文档https://docs.docker.com/install/linux/docker-ce/centos/）
+```
+
+> 配置镜像加速器
+
+```
+‐ 阿里云配置镜像加速器
+    第一种方式：（先加入阿里云开发者平台：https://dev.aliyun.com 登录》弹性计算的容器镜像服务》管理控制台》镜像加速器 参考该网站具体的文档操作）
+    第二种方式： (直接复制下面到shell执行)   
+>>>>>>> f6bbf0a... 编写制作tomcat镜像自动脚本
 sudo mkdir -p /etc/docker
 sudo tee /etc/docker/daemon.json <<-'EOF'
 {
@@ -86,9 +99,53 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker
 验证：cat /etc/docker/daemon.json发现里面有阿里云的镜像地址
 
+<<<<<<< HEAD
 其他镜像加速器
 ‐ docker中国加速器（https://www.docker‐cn.com) 
 ‐ USTC加速器（https://lug.ustc.edu.cn/wiki/ ）  真正的公共服务（无需任何操作） 
 ‐ daocloud、网易蜂巢加速器等
 
 ```
+=======
+> 制作tomcat镜像步骤（两种方式参考文档制作，或者用脚本）
+
+```
+第一种方式：
+
+1、宿主机拉取一个基础镜像（其始就是OS） 
+           docker pull centos
+2、宿主机创建一个交互式容器 
+           docker run ‐it ‐‐name=mycentos centos:latest
+3、软件上传：将宿主机Tomact、jdk上传到容器中 
+           docker cp apache‐tomcat‐7.0.47.tar.gz mycentos:/root/ 
+           docker cp jdk‐8u161‐linux‐x64.tar.gz mycentos:/root/
+4、在容器中安装jdk  （yum install java‐1.7.0‐openjdk） （https://pan.baidu.com/s/18QGn2Tc2kDNJVflqwfgghA可下载jdk‐8u161‐linux‐x64.tar.gz）
+           tar ‐zxvf jdk‐8u161‐linux‐x64.tar.gz ‐C /usr/local/ 
+编辑/etc/profile文件，添加如下内容： 
+           JAVA_HOME=/usr/local/jdk1.8.0_161 
+           export PATH=$JAVA_HOME/bin:$PATH
+5、在容器中安装tomcat 
+           tar ‐zxvf apache‐tomcat‐7.0.47.tar.gz ‐C /usr/local/ 
+编辑vi /usr/local/apache-tomcat-7.0.47/bin/setclasspath.sh文件，添加如下内容： 
+           export JAVA_HOME=/usr/local/jdk1.8.0_161 
+           export JRE_HOME=/usr/local/jdk1.8.0_161/jre
+6、宿主机上将正在运行的容器提交为一个新的镜像
+           docker commit mycentos mytomcat
+ 
+ 
+第二种方式：        
+***************************************************************
+或者使用我已经编写好自动脚本。只需四步
+1.把docker文件夹的文件上传到宿主机上
+2.在宿主机上运行，并输入 镜像名字
+   sh create_self_imges.sh
+3.执行第二步后会自动进入创建好的镜像，只要再执行
+   sh /root/create_tomcat_centos_images.sh
+4.宿主机上将正在运行的容器提交为一个新的镜像
+   exit
+   docker commit 镜像名字 新的镜像名字
+   
+   查看是否有新的镜像名字：docker imgages
+```
+
+>>>>>>> f6bbf0a... 编写制作tomcat镜像自动脚本
