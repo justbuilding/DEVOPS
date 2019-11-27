@@ -1,4 +1,0 @@
-
-CentOS7取出IP地址并赋值
-
-https://blog.csdn.net/networken/article/details/81365186
