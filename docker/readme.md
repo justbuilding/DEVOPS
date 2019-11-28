@@ -106,7 +106,6 @@ sudo systemctl restart docker
 ‐ daocloud、网易蜂巢加速器等
 
 ```
-=======
 > 制作tomcat镜像步骤（两种方式参考文档制作，或者用脚本）
 
 ```
@@ -147,3 +146,25 @@ sudo systemctl restart docker
    
    查看是否有新的镜像名字：docker imgages
 ```
+
+> 运行tomcat
+
+```
+docker端口映射
+docker run ‐itd ‐‐name=t1 ‐p 8888:8080 mytomcat /bin/bash 
+
+docker启动tomcat
+docker exec t1 /usr/local/apache‐tomcat‐7.0.47/bin/startup.sh
+
+通过主机（非虚拟机）访问：http://宿主机ip:port
+
+```
+
+虚拟机查看ip
+
+![1574908379798](assets/1574908379798.png)
+
+win10的chrome浏览器访问
+
+![1574908395220](assets/1574908395220.png)
+

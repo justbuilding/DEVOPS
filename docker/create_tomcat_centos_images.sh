@@ -8,9 +8,15 @@ echo "解压完成"
 echo "*******************************************"
 echo "*******************************************"
 echo "正在配置环境变量中"
+## export JRE_HOME=/usr/local/jdk1.8.0_161/jre和export JAVA_HOME=/usr/local/jdk1.8.0_161
+##必须放在setclasspath.sh前面，否则会报错找不到jdk和jre
 echo "*******************************************"
 echo -e "JAVA_HOME=/usr/local/jdk1.8.0_161\nexport PATH=$JAVA_HOME/bin:$PATH">>/etc/profile
-echo -e "export JAVA_HOME=/usr/local/jdk1.8.0_161\nexport JRE_HOME=/usr/local/jdk1.8.0_161/jre">>/usr/local/apache-tomcat-7.0.47/bin/setclasspath.sh
+sed -i '1 a\export JAVA_HOME=/usr/local/jdk1.8.0_161' /usr/local/apache-tomcat-7.0.47/bin/setclasspath.sh
+sed -i '1 a\export JRE_HOME=/usr/local/jdk1.8.0_161/jre' /usr/local/apache-tomcat-7.0.47/bin/setclasspath.sh
+source /etc/profile
 echo "*******************************************"
-echo "全部完成"
+echo "全部完成，echo $PATH"
+echo "看有没/usr/local/jdk1.8.0_161/bin"
+echo "有则设置环境变量成功"
 echo "*******************************************"
