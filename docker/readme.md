@@ -16,7 +16,7 @@ CentOS：手动启动
                     systemctl enable docker（开机启动）
 查看docker运行状态    
                     sudo sytemctl status docker
-**********************************************************
+******************************************************************************
 列出镜像（镜像都是存储在Docker宿主机的/var/lib/docker目录）      
                     docker images
 
@@ -55,31 +55,38 @@ CentOS：手动启动
                     （PS：无法删除正在运行的容器）
 查看容器日志
                     docker logs 容器名称/id
+
+******************************************************************************
 文件拷贝             
                     docker cp  1.txt c2:/root
                     docker cp c2:/root/2.txt /root 
 
 目录挂载（将宿主机的目录与容器内的进行映射，这样我们就可通过修改宿主机某个目录的文件从而去影响容器）   
                     docker run ‐id ‐‐name=c4 ‐v /opt/:/usr/local/myhtml centos
-                    docker run ‐id ‐‐privileged=true ‐‐name=c4 ‐v /opt/:/usr/local/myhtml  centos（共享的是多级的目录，可能会出现权限不足的提示是因为CentOS7中的安全模块selinux把权限禁掉了，我们需要添加参数  -privileged=true  来解决挂载的目录没有权限
-）
+                    
+                    docker run ‐id ‐‐privileged=true ‐‐name=c4                                                                    ‐v /opt/:/usr/local/myhtml  centos
+                   （共享的是多级目录，出现权限不足是CentOS7中的安全模块selinux把权限禁掉了，我                      们需加参数  -privileged=true  来解决挂载的目录没有权限）
+
+******************************************************************************
+镜像打包
+                    docker save ‐o /root/tomcat7.tar mytomcat
+镜像上传
+                    scp tomcat7.tar 其他服务器ip:/root
+镜像导入
+                    docker load ‐i /root/tomcat7.tar 
+容器打包  
+                    docker export ‐o /root/t1.tar t1 
+导入容器  
+                    docker import t1.tar mytomcat:latest  
 ```
 
 # 安装和配置
 
-```
-<<<<<<< HEAD
-1.安装与验证是否可用（https://docs.docker.com/install/linux/docker-ce/centos/）
-sh docker_install.sh
+> 安装与验证是否可用
 
-2.配置镜像加速器：
-（参考该网站具体的文档操作）
-‐ 阿里云（先加入阿里云开发者平台：https://dev.aliyun.com）
-      登录》弹性计算的容器镜像服务》管理控制台》镜像加速器
-      
-=======
-     sh docker_install.sh
-（官方文档https://docs.docker.com/install/linux/docker-ce/centos/）
+```
+官方文档（https://docs.docker.com/install/linux/docker-ce/centos/）
+sh auto_docker_install.sh  
 ```
 
 > 配置镜像加速器
@@ -88,7 +95,7 @@ sh docker_install.sh
 ‐ 阿里云配置镜像加速器
     第一种方式：（先加入阿里云开发者平台：https://dev.aliyun.com 登录》弹性计算的容器镜像服务》管理控制台》镜像加速器 参考该网站具体的文档操作）
     第二种方式： (直接复制下面到shell执行)   
->>>>>>> f6bbf0a... 编写制作tomcat镜像自动脚本
+
 sudo mkdir -p /etc/docker
 sudo tee /etc/docker/daemon.json <<-'EOF'
 {
@@ -97,14 +104,14 @@ sudo tee /etc/docker/daemon.json <<-'EOF'
 EOF
 sudo systemctl daemon-reload
 sudo systemctl restart docker
+
 验证：cat /etc/docker/daemon.json发现里面有阿里云的镜像地址
 
-<<<<<<< HEAD
+**********************************************************************
 其他镜像加速器
 ‐ docker中国加速器（https://www.docker‐cn.com) 
 ‐ USTC加速器（https://lug.ustc.edu.cn/wiki/ ）  真正的公共服务（无需任何操作） 
 ‐ daocloud、网易蜂巢加速器等
-
 ```
 > 制作tomcat镜像步骤（两种方式参考文档制作，或者用脚本）
 
@@ -137,7 +144,7 @@ sudo systemctl restart docker
 或者使用我已经编写好自动脚本。只需四步
 1.把docker文件夹的文件上传到宿主机上
 2.在宿主机上运行，并输入 镜像名字
-   sh create_self_imges.sh
+   sh autocreate_self_imges.sh
 3.执行第二步后会自动进入创建好的镜像，只要再执行
    sh /root/create_tomcat_centos_images.sh
 4.宿主机上将正在运行的容器提交为一个新的镜像
