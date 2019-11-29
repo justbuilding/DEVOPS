@@ -78,6 +78,7 @@ CentOS：手动启动
                     docker export ‐o /root/t1.tar t1 
 导入容器  
                     docker import t1.tar mytomcat:latest  
+                    
 ```
 
 # 安装和配置
