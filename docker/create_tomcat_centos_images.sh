@@ -53,3 +53,6 @@ sed -i '/<\/tomcat-users>/i\<user username="admin" password="admin" roles="manag
 echo "配置/usr/local/apache-tomcat-7.0.47/conf/tomcat-users.xml成功,这个文件用于设置密码"
 echo "已经配置账号密码为admin，admin"
 echo "*************************************************************************************"
+echo "自动重启tomcat"
+/usr/local/apache-tomcat-7.0.47/bin/shutdown.sh&&/usr/local/apache-tomcat-7.0.47/bin/startup.sh
+echo "重启成功，访问server status和manager app 和host manager按钮不会出现403错误"
