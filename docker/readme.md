@@ -168,17 +168,41 @@ docker exec t1 /usr/local/apache‐tomcat‐7.0.47/bin/startup.sh
 
 ```
 
-虚拟机查看ip
+> 
+>
+> 虚拟机查看ip
 
 ![1574908379798](assets/1574908379798.png)
 
-win10的chrome浏览器访问
+> 
+>
+> win10的chrome浏览器访问
 
 ![1574908395220](assets/1574908395220.png)
 
-配置密码
+> 
+>
+> 配置ip(允许ip访问server status和manager app 和host manager按钮)
+
+apache-tomcat-7.0.47/webapps/manager/META-INF/context.xml里面的注释代码的作用是限制来访IP的，127.d+.d+.d+|::1|0:0:0:0:0:0:0:1，是正则表达式，表示IPv4和IPv6的本机环回地址，所以这也解释了，为什么我们本机可以访问管理界面，但是其他机器确是403。找到原因了，那么修改一下这里的正则表达式即可，我们修改为所有人都可以访问，
+
+在usr/local/apache-tomcat-7.0.47/webapps/manager/META-INF/context.xml里和
+
+/usr/local/apache-tomcat-7.0.47/webapps/host-manager/META-INF/context.xml的</Context>前添加
+
+<Valve className="org.apache.catalina.valves.RemoteAddrValve" allow="^.*$" />
+
+或者用
+
+sed -i '/<\/Context>/i\<Valve className="org.apache.catalina.valves.RemoteAddrValve" allow="^.*$" />' /usr/local/apache-tomcat-7.0.47/webapps/manager/META-INF/context.xml
+
+sed -i '/<\/Context>/i\<Valve className="org.apache.catalina.valves.RemoteAddrValve" allow="^.*$" />' /usr/local/apache-tomcat-7.0.47/webapps/host-manager/META-INF/context.xml
 
 
+
+> 
+>
+> 配置密码
 
 能够清楚的看到，有三个可以访问的链接。点击时需要用户名和密码。现在无法访问。
 
@@ -227,4 +251,3 @@ manager-status - allows access to the status pages only
 
 ---------------------------------
 
-很多网页没说到第三个按钮针对的角色。不添加admin-gui和admin-script的话，第三个按钮就会出现访问被拒绝的问题（access denied ....）
