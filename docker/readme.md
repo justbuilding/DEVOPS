@@ -198,7 +198,11 @@ sed -i '/<\/Context>/i\<Valve className="org.apache.catalina.valves.RemoteAddrVa
 
 sed -i '/<\/Context>/i\<Valve className="org.apache.catalina.valves.RemoteAddrValve" allow="^.*$" />' /usr/local/apache-tomcat-7.0.47/webapps/host-manager/META-INF/context.xml
 
+<role rolename="admin-gui"/>  
 
+<role rolename="manager-gui"/>    
+
+<user username="tomcat" password="s3cret" roles="admin-gui,manager-gui"/>  
 
 > 
 >
@@ -216,9 +220,11 @@ sed -i '/<\/Context>/i\<Valve className="org.apache.catalina.valves.RemoteAddrVa
 
 针对第三个按钮“Host Manager”，配置角色时一定把角色配全。修改tomcat-users.xml 文件，加入如下代码：
 
-1. <role rolename="admin-gui"/>  
-2. <role rolename="manager-gui"/>    
-3. <user username="tomcat" password="s3cret" roles="admin-gui,manager-gui"/>  
+<role rolename="admin-gui"/>  
+
+<role rolename="manager-gui"/>    
+
+<user username="tomcat" password="s3cret" roles="admin-gui,manager-gui"/>  
 
 配置tomcat-users.xml文件后，重新启动tomcat服务。在浏览器成功访问tomcat，点击要访问的 “Host Manager”在弹出的“身份验证”框中输入用户名：tomcat，密码：s3cret，点击登录按钮。效果如下：
 
@@ -237,8 +243,6 @@ manager-status - allows access to the status pages only
     admin-script - allows access to the text interface and the status pages
 所以在 tomcat-users.xml 如果不注重安全性，只是测试用的话，对应部分可以简单地写成下面这个样子：
 
----------------------------------
-
    <role rolename="admin"/>
    <role rolename="manager-script"/>
    <role rolename="manager-gui"/>
@@ -248,6 +252,4 @@ manager-status - allows access to the status pages only
    <role rolename="admin-script"/>
 
    <user username="admin" password="admin" roles="manager-gui,manager-script,manager-jmx,manager-status,admin-gui,admin-script"/>
-
----------------------------------
 
