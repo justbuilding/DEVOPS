@@ -188,9 +188,13 @@ apache-tomcat-7.0.47/webapps/manager/META-INF/context.xml里面的注释代码�
 
 在usr/local/apache-tomcat-7.0.47/webapps/manager/META-INF/context.xml里和
 
-/usr/local/apache-tomcat-7.0.47/webapps/host-manager/META-INF/context.xml的</Context>前添加
+/usr/local/apache-tomcat-7.0.47/webapps/host-manager/META-INF/context.xml的</Context前添加
 
+```
 <Valve className="org.apache.catalina.valves.RemoteAddrValve" allow="^.*$" />
+```
+
+
 
 或者用
 
@@ -198,11 +202,15 @@ sed -i '/<\/Context>/i\<Valve className="org.apache.catalina.valves.RemoteAddrVa
 
 sed -i '/<\/Context>/i\<Valve className="org.apache.catalina.valves.RemoteAddrValve" allow="^.*$" />' /usr/local/apache-tomcat-7.0.47/webapps/host-manager/META-INF/context.xml
 
+```
 <role rolename="admin-gui"/>  
 
 <role rolename="manager-gui"/>    
 
 <user username="tomcat" password="s3cret" roles="admin-gui,manager-gui"/>  
+```
+
+
 
 > 
 >
