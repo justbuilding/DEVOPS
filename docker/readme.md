@@ -176,3 +176,27 @@ win10的chrome浏览器访问
 
 ![1574908395220](assets/1574908395220.png)
 
+配置密码
+
+
+
+能够清楚的看到，有三个可以访问的链接。点击时需要用户名和密码。现在无法访问。
+
+- Server Status
+- Manager App
+- Host Manager
+
+第二步：配置tomcat-users.xml 文件
+
+在主目录的cong文件夹下找到tomcat-users.xml 文件中配置用户角色：
+
+针对第三个按钮“Host Manager”，配置角色时一定把角色配全。修改tomcat-users.xml 文件，加入如下代码：
+
+1. <role rolename="admin-gui"/>  
+2. <role rolename="manager-gui"/>    
+3. <user username="tomcat" password="s3cret" roles="admin-gui,manager-gui"/>  
+
+配置tomcat-users.xml文件后，重新启动tomcat服务。在浏览器成功访问tomcat，点击要访问的 “Host Manager”在弹出的“身份验证”框中输入用户名：tomcat，密码：s3cret，点击登录按钮。效果如下：
+
+![1575199131772](assets/1575199131772.png)
+
