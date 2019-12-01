@@ -202,14 +202,6 @@ sed -i '/<\/Context>/i\<Valve className="org.apache.catalina.valves.RemoteAddrVa
 
 sed -i '/<\/Context>/i\<Valve className="org.apache.catalina.valves.RemoteAddrValve" allow="^.*$" />' /usr/local/apache-tomcat-7.0.47/webapps/host-manager/META-INF/context.xml
 
-```
-<role rolename="admin-gui"/>  
-
-<role rolename="manager-gui"/>    
-
-<user username="tomcat" password="s3cret" roles="admin-gui,manager-gui"/>  
-```
-
 
 
 > 
