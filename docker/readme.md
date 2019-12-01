@@ -200,3 +200,31 @@ win10的chrome浏览器访问
 
 ![1575199131772](assets/1575199131772.png)
 
+Server Status
+Manager App
+Host Manager
+前两个按钮和manager相关，具体角色名为    
+manager-gui - allows access to the HTML GUI and the status pages
+manager-script - allows access to the text interface and the status pages
+manager-jmx - allows access to the JMX proxy and the status pages
+manager-status - allows access to the status pages only
+第三个按钮和admin相关，具体角色名为    
+    admin-gui - allows access to the HTML GUI and the status pages
+    admin-script - allows access to the text interface and the status pages
+所以在 tomcat-users.xml 如果不注重安全性，只是测试用的话，对应部分可以简单地写成下面这个样子：
+
+---------------------------------
+
+   <role rolename="admin"/>
+   <role rolename="manager-script"/>
+   <role rolename="manager-gui"/>
+   <role rolename="manager-jmx"/>
+   <role rolename="manager-status"/>
+   <role rolename="admin-gui"/>
+   <role rolename="admin-script"/>
+
+   <user username="admin" password="admin" roles="manager-gui,manager-script,manager-jmx,manager-status,admin-gui,admin-script"/>
+
+---------------------------------
+
+很多网页没说到第三个按钮针对的角色。不添加admin-gui和admin-script的话，第三个按钮就会出现访问被拒绝的问题（access denied ....）
