@@ -1,4 +1,3 @@
-set -uexo pipefail
 echo "*******************************************"
 echo "正在解压中"
 echo "*******************************************"
@@ -12,12 +11,12 @@ echo "正在备份和配置环境变量中"
 ## export JRE_HOME=/usr/local/jdk1.8.0_161/jre和export JAVA_HOME=/usr/local/jdk1.8.0_161
 ##必须放在setclasspath.sh前面，否则会报错找不到jdk和jre
 echo "*******************************************"
-#配置环境变量到/etc/profile
+echo "配置环境变量到/etc/profile"
 cp /etc/profile{,.bak}
 echo "JAVA_HOME=/usr/local/jdk1.8.0_161">>/etc/profile;
 echo "export CLASSPATH=.:\${JAVA_HOME}/jre/lib/rt.jar:\${JAVA_HOME}/lib/dt.jar:\${JAVA_HOME}/lib/tools.jar">>/etc/profile;
 echo "export PATH=\$PATH:\${JAVA_HOME}/bin">>/etc/profile;
-source /etc/profile
+sudo source /etc/profile
 java -version >/dev/null 2>&1
 if [ $? -ne 0 ]; then
     echo "配置java环境出错"
@@ -30,7 +29,7 @@ cp /usr/local/apache-tomcat-7.0.47/bin/setclasspath.sh{,.bak}
 sed -i '1 a\export JAVA_HOME=/usr/local/jdk1.8.0_161' /usr/local/apache-tomcat-7.0.47/bin/setclasspath.sh
 sed -i '1 a\export JRE_HOME=/usr/local/jdk1.8.0_161/jre' /usr/local/apache-tomcat-7.0.47/bin/setclasspath.sh
 echo "*************************************************************************************"
-echo "全部完成，echo $PATH"
+echo "完成"
 echo "输入java -version有版本输出即可以"
 echo "*************************************************************************************"
 echo "*************************************************************************************"
@@ -54,5 +53,6 @@ echo "配置/usr/local/apache-tomcat-7.0.47/conf/tomcat-users.xml成功,这个�
 echo "已经配置账号密码为admin，admin"
 echo "*************************************************************************************"
 echo "自动重启tomcat"
-/usr/local/apache-tomcat-7.0.47/bin/shutdown.sh&&/usr/local/apache-tomcat-7.0.47/bin/startup.sh
+echo "重启tomcat可用/usr/local/apache-tomcat-7.0.47/bin/shutdown.sh&&/usr/local/apache-tomcat-7.0.47/bin/startup.sh"
+/usr/local/apache-tomcat-7.0.47/bin/shutdown.sh&&/usr/local/apache-tomcat-7.0.47/bin/startup.sh>/dev/null 2>&1
 echo "重启成功，访问server status和manager app 和host manager按钮不会出现403错误"

@@ -83,6 +83,66 @@ CentOS：手动启动
 
 # 安装和配置
 
+#### 最简操作（这是我利用官方文档写的shell脚本，完美全过程）
+
+1.下载apache-tomcat-7.0.47.tar.gz和jdk-8u161-linux-x64.tar.gz和脚本
+
+链接: https://pan.baidu.com/s/1Qwkc4usBbMHOBPZswA5CEw 提取码: nhqk
+
+2.把所有文件传到同一级目录
+
+3.执行自动安装docker脚本
+
+```
+sh auto_docker_install.sh 
+```
+
+4.执行以下命令配置阿里云加速镜像（可忽略）cat /etc/docker/daemon.json可查看是否有阿里云镜像地址
+
+```
+sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json <<-'EOF'
+{
+  "registry-mirrors": ["https://5wjm672p.mirror.aliyuncs.com"]
+}
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+```
+
+5.执行创建镜像，同时端口号会由8080改为8888
+
+```
+sh create_self_imges.sh
+```
+
+6.执行上一步后会自动进入创建好的镜像，只要再执行
+
+```
+sh /root/create_tomcat_centos_images.sh
+source /etc/profile
+java -version
+```
+
+7.查看虚拟机ip（exit到虚拟机，而不是在镜像里面）
+
+```
+exit
+ip a
+```
+
+虚拟机或本机访问  虚拟机ip:8888
+
+8.账号密码均为admin
+
+#### 详细操作懂原理（可忽略）
+
+> 下载
+
+apache-tomcat-7.0.47.tar.gz
+
+jdk-8u161-linux-x64.tar.gz
+
 > 安装与验证是否可用
 
 ```
@@ -145,9 +205,10 @@ sudo systemctl restart docker
 或者使用我已经编写好自动脚本。只需四步
 1.把docker文件夹的文件上传到宿主机上
 2.在宿主机上运行，并输入 镜像名字
-   sh autocreate_self_imges.sh
+   sh create_self_imges.sh
 3.执行第二步后会自动进入创建好的镜像，只要再执行
    sh /root/create_tomcat_centos_images.sh
+   source /etc/profile
 4.宿主机上将正在运行的容器提交为一个新的镜像
    exit
    docker commit 镜像名字 新的镜像名字
