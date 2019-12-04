@@ -2,6 +2,8 @@
 
 ## jenkins
 
+理解持续集成、持续部署、持续交付这些相关概念，介绍了基于Jenkins搭建持续集成环境的操作过程。配套的版本控制系统使用了SVN和GitHub。对Maven构建管理和版本控制技术有较高程度的掌握。
+
 官方文档：<https://jenkins.io/zh/doc/pipeline/tour/getting-started/>
 
 安装步骤：
@@ -46,7 +48,7 @@ java -jar jenkins.war --httpPort=8080
 
 》》
 
-打x的插件时网络问题，可以以后再安装
+打x的插件是网络问题，可以以后再安装
 
 ![1575336207058](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1575336207058.png)
 
