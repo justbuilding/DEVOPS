@@ -1,0 +1,22 @@
+[root@localhost blog]# vi /etc/fstab
+# /etc/fstab
+# Created by anaconda on Sat Jul 27 18:35:19 2019
+#
+# Accessible filesystems, by reference, are maintained under '/dev/disk'
+# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
+#
+/dev/mapper/VolGroup-lv_root /                       ext4    defaults        1 1
+UUID=bae1bae8-e902-4b41-a25a-83607cce2681 /boot                   ext4    defaults        1 2
+/dev/mapper/VolGroup-lv_swap swap                    swap    defaults        0 0
+tmpfs                   /dev/shm                tmpfs   defaults        0 0
+devpts                  /dev/pts                devpts  gid=5,mode=620  0 0
+sysfs                   /sys                    sysfs   defaults        0 0
+proc                    /proc                   proc    defaults        0 0
+
+增加/dev/sr0   /mnt   iso9660  defaults 0 0
+iso9660为挂载的文件系统类型为光盘，将/dev/sr0挂载到/mnt下
+使其生效
+mount -a
+查看一下 
+df -h
+然后reboot
