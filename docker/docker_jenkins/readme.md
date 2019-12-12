@@ -8,6 +8,8 @@
 
 安装步骤：
 
+0.确保宿主机可以联网
+
 1.下载 Jenkins(http://mirrors.jenkins.io/war-stable/latest/jenkins.war).
 
 2.下载jdk-8u161-linux-x64.tar.gz
@@ -26,6 +28,7 @@ sh create_imges.sh（在已经安docker情况下,安装后会自动进入镜像�
 
 ```
 sh /root/java_env.sh
+source /etc/profile
 ```
 
 6.运行命令 （绑定jenkins内网端口为8080）

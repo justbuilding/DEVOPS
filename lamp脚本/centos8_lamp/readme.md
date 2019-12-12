@@ -21,6 +21,8 @@ mcrypt-2.6.8.tar.gz            zlib-1.2.11.tar.xz
 
 https://cdn2.lmonkey.com/e7977e11d6abd86e36466784beaf24c5/190e0d241f4648908245a2ff732f9080.zip
 
+
+
 >  问题解决
 
 1.解决VM安装centos8时出现的黑屏
