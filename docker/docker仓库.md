@@ -103,6 +103,22 @@ v1: digest: sha256:92c7f9c92844bbbb5d0a101b22f7c2a7949e40f8ea90c8b3bc396879d95e8
 
 ![1576132973516](assets/1576132973516.png)
 
+```
+]# mkdir /mnt/registry
+
+]# docker run -d \
+
+-p 5000:5000 \
+
+--restart=always \
+
+--name registry \
+
+-v /mnt/registry:/var/lib/registry \
+
+registry:2
+```
+
 指令参数说明： ‐d：表示在后台运行该容器； ‐p 5000:5000：表示将私有镜像仓库容器内部默认暴露的5000端口映射到宿主机的5000端 口 ‐‐restart=always：表示容器启动后自动启动本地私有镜像仓库 ‐‐name registry：表示为生成的容器命名为registry ‐v /mnt/registry:/var/lib/registry：表示将容器内的默认存储位 置/var/lib/registry中的数据挂载到宿主机的/mnt/registry目录下，这样当容器销毁 后，在容器中/var/lib/registry目录下的数据会自动备份到宿主机指定目录/mnt/registry
 
 最后的registry:2解说
@@ -129,4 +145,7 @@ docker tag hello‐world:latest localhost:5000/myhellodocker
 
 宿主机IP:5000/v2/myhellodocker/tags/list  （注意：使用该地址时注意镜 像名称）
 由于做了目录挂载，因此可以在本地的该目录下查看：
-/mnt/registry/docker/registry/v2/repositories
+
+```
+ls /mnt/registry/docker/registry/v2/repositories
+```
