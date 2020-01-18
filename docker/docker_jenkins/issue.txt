@@ -1,0 +1,3 @@
+1.No such plugin: cloudbees-folder
+解决:
+等待jenkins下载完组件
