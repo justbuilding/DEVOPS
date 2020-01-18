@@ -1,0 +1,30 @@
+官方文档在线安装
+网址:https://pkg.jenkins.io/redhat-stable/
+
+
+# RedHat Linux RPM packages for Jenkins
+
+To use this repository, run the following command:
+
+```
+sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+```
+
+If you've previously imported the key from Jenkins, the "rpm --import" will fail because you already have a key. Please ignore that and move on.
+
+You will need to explicitly install a Java runtime environment, because Oracle's Java RPMs are incorrect and fail to register as providing a java dependency. Thus, adding an explicit dependency requirement on Java would force installation of the OpenJDK JVM.
+
+
+
+- 2.164 (2019-02) and newer: Java 8 or Java 11
+- 2.54 (2017-04) and newer: Java 8
+- 1.612 (2015-05) and newer: Java 7
+
+With that set up, the Jenkins package can be installed with:
+
+```
+yum install jenkins
+```
+
+See [Wiki](https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Red+Hat+distributions) for more information, including how Jenkins is run and where the configuration is stored, etc.
