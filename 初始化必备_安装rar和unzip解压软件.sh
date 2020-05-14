@@ -9,7 +9,7 @@ tar -zxvf rarlinux-x64-5.3.0.tar.gz
 cd rar
 make
 cd ..
-echo "安装rar成功”
+echo "安装rar成功"
 
 yum install -y unzip zip
 echo "安装unzip,zip成功"
