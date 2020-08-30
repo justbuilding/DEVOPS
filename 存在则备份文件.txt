@@ -1,5 +1,0 @@
-# 如果存在文件，就对其备份
-if [ -f file];then
-	echo "backup"
-	cp file file.bak
-fi

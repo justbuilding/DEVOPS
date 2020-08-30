@@ -1,1 +1,0 @@
- touch `date +%s`.log
