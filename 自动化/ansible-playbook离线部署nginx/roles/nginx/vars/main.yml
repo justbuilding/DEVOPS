@@ -1,0 +1,4 @@
+---
+ngxport: "8080"
+server_name: "www.xxx.com"
+root_dir: "/web"

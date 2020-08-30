@@ -1,0 +1,3 @@
+---
+- name: Start Install NGINX
+  shell: cd /usr/local/nginx

@@ -1,0 +1,15 @@
+---
+- name: 备份配置文件
+  shell: cp /usr/local/nginx/conf/nginx.conf{,.bak}
+  register: info11
+- debug: msg="备份过程{{info11.stdout}}"
+
+- name: 拷贝配置文件
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: "nginx.conf.j2",dest: "/usr/local/nginx/conf/nginx.conf" }
+    #- { src: "temp.conf.j2",dest: "/usr/local/nginx/vhosts/temp.conf" }
+  notify:
+    - restart nginx

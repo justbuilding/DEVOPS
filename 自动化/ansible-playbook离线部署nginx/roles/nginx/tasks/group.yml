@@ -1,0 +1,7 @@
+---
+- name: 创建nginx组
+  group: 
+    name: nginx
+    gid: 202
+    system: yes
+    state: present

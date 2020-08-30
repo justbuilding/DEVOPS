@@ -1,0 +1,7 @@
+port 20002
+protected-mode no
+sentinel monitor redis1 192.168.227.140 20001 2
+dir "/home/redis/redisdata1"
+sentinel auth-pass redis1 123456
+sentinel down-after-milliseconds redis1 5000
+sentinel failover-timeout redis1 10000

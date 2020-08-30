@@ -1,0 +1,9 @@
+---
+  - include: group.yml
+  - include: user.yml
+  - include: copy.yml
+  - include: unarchive.yml
+  - include: install.yml
+  - include: template.yml
+    tags: [conf]
+  - include: service.yml

@@ -1,0 +1,6 @@
+- hosts: "{{ server_ips|default('all')}}"
+  gather_facts: no
+  vars:
+    ansible_ssh_pass: "{{server_password}}"
+  roles:
+  - ssh

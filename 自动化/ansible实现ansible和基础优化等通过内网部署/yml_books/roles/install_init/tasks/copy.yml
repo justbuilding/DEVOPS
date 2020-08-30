@@ -1,0 +1,47 @@
+- name: copy limits.conf files
+  copy:
+    src: "{{install_home}}/yml_books/roles/install_init/templates/{{item}}"
+    dest: "/etc/security/{{item}}"
+    force: no
+    mode: 0644
+    backup: yes
+  with_items:
+  - limits.conf
+
+- name: copy sysctl.conf files
+  copy:
+    src: "{{install_home}}/yml_books/roles/install_init/templates/{{item}}"
+    dest: "/etc/{{item}}"
+    force: no
+    mode: 0644
+    backup: yes
+  with_items:
+  - sysctl.conf
+  register: sysctl_file
+
+- name: make changed
+  when: sysctl_file.changed
+  shell: "sysctl -p /etc/sysctl.conf"
+  ignore_errors: true
+
+- name: copy epel-7.repo to accelerate
+  copy:
+    src: "{{install_home}}/yml_books/roles/install_init/templates/{{item}}"
+    dest: "/etc/yum.repos.d/{{item}}"
+    force: no
+    mode: 0644
+    backup: yes
+  with_items:
+  - epel-7.repo
+
+- name: copy shell files
+  copy:
+    src: "{{install_home}}/yml_books/roles/install_init/templates/{{item}}"
+    dest: "{{install_home}}/{{item}}"
+    force: no
+    mode: 0755
+    backup: yes
+  with_items:
+  - firewalld.sh
+  - install_init.sh
+

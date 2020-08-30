@@ -1,0 +1,29 @@
+TASK [testbox : start nginx service] *******************************************
+fatal: [test.example.com]: FAILED! => {"changed": false, "msg": "Unable to start service nginx: Job for nginx.service failed because the control process exited with error code. See \"systemctl status nginx.service\" and \"journalctl -xe\" for details.\n"}
+	to retry, use: --limit @/home/deploy/.py3-a2.5-env/ansible/test_playbooks/deploy.retry
+
+PLAY RECAP ******************************************************************
+
+
+到服务器查看，发现80端口被nginx自己占用
+[root@test ~]# systemctl status nginx.service
+● nginx.service - nginx - high performance web server
+   Loaded: loaded (/usr/lib/systemd/system/nginx.service; disabled; vendor preset: disabled)
+   Active: failed (Result: exit-code) since Tue 2020-02-04 10:19:49 EST; 9s ago
+     Docs: http://nginx.org/en/docs/
+  Process: 35597 ExecStart=/usr/sbin/nginx -c /etc/nginx/nginx.conf (code=exited, status=1/FAILURE)
+
+Feb 04 10:19:47 test.example.com nginx[35597]: nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+Feb 04 10:19:47 test.example.com nginx[35597]: nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+Feb 04 10:19:48 test.example.com nginx[35597]: nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+Feb 04 10:19:48 test.example.com nginx[35597]: nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+Feb 04 10:19:49 test.example.com nginx[35597]: nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+Feb 04 10:19:49 test.example.com nginx[35597]: nginx: [emerg] still could not bind()
+Feb 04 10:19:49 test.example.com systemd[1]: nginx.service: control process exited, code=exited status=1
+Feb 04 10:19:49 test.example.com systemd[1]: Failed to start nginx - high performance web server.
+
+
+解决方案：
+vi inventory/testenv
+改为81端口
+重新执行

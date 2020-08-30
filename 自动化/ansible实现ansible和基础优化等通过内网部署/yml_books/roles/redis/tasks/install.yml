@@ -1,0 +1,56 @@
+- name: create some dirs
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+  - "{{install_home}}/docker"
+
+- name: copy docker.tar.xz
+  copy:
+    src: "{{install_home}}/pkg/docker/{{item}}"
+    dest: "{{install_home}}/docker/{{item}}"
+    force: no
+    mode: 0755
+  with_items:
+  - docker.tar.xz
+
+- name: copy run_docker.sh
+  copy:
+    src: "{{install_home}}/yml_books/roles/install_docker/templates/{{item}}"
+    dest: "{{install_home}}/docker/{{item}}"
+    force: yes
+    mode: 0755
+  with_items:
+  - run_docker.sh
+
+- name: tar docker.tar.xz
+  unarchive:
+    src: "{{install_home}}/docker/docker.tar.xz"
+    dest: "{{install_home}}/docker/"
+    remote_src: True
+
+- name: install docker
+  shell: "rpm -Uvh {{install_home}}/docker/*.rpm"
+  ignore_errors: true
+
+- name: copy docker service
+  copy:
+    src: "{{install_home}}/yml_books/roles/install_docker/templates/{{item}}"
+    dest: "/etc/systemd/system/{{item}}"
+    force: no
+    mode: 0644
+    backup: yes
+  with_items:
+  - docker.service
+
+- name: copy daemon.json to accelerate
+  copy:
+    src: "{{install_home}}/yml_books/roles/install_docker/templates/{{item}}"
+    dest: "/etc/docker/{{item}}"
+    force: no
+    mode: 0644
+  with_items:
+  - daemon.json
+
+- name: run docker
+  shell: "sh {{install_home}}/docker/run_docker.sh" 

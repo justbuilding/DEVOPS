@@ -1,0 +1,1 @@
+ansible-playbook  -i hosts1 test.yaml

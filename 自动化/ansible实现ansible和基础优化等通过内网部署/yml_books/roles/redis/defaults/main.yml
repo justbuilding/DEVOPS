@@ -1,0 +1,5 @@
+install_service_name: redis
+decompression_dir: "{{install_home}}/{{install_service_name}}"
+
+
+

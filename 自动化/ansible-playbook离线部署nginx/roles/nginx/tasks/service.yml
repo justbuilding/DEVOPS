@@ -1,0 +1,3 @@
+#---
+#- name: 拷贝启动脚本
+#  copy: src="nginx.service" dest="/lib/systemd/system/nginx.service"

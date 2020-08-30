@@ -1,0 +1,7 @@
+---
+- name: 拷贝源码包
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: "nginx1.4.tar", dest: "/tmp/nginx1.4.tar" }

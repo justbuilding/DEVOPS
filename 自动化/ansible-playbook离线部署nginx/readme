@@ -1,0 +1,2 @@
+修改nginx运行端口只需要修改
+roles/nginx/vars/main.yml文件的第2行中的ngxport

@@ -1,0 +1,6 @@
+- hosts: "{{ server_ips|default('all')}}"
+  gather_facts: no
+  roles:
+  - ssh
+  - install_init
+  - install_docker

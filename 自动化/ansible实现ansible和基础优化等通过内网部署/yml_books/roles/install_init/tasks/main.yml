@@ -1,0 +1,10 @@
+
+- import_tasks: dir.yml
+
+- import_tasks: copy.yml
+
+- name : run shell
+  shell : "sh {{item}}"
+  with_items:
+  - "{{install_home}}/install_init.sh"
+  - "{{install_home}}/firewalld.sh"

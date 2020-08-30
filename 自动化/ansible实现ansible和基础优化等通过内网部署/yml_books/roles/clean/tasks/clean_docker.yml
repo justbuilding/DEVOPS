@@ -1,0 +1,14 @@
+- name: copy file
+  copy:
+    src: "{{install_home}}/yml_books/roles/clean/templates/{{item}}"
+    dest: "{{install_home}}/docker/{{item}}"
+    force: yes
+    mode: 0755
+  with_items:
+  - clean_docker.sh
+  - docker_rpm.txt
+
+- name: remove docker
+  shell: "sh {{install_home}}/docker/clean_docker.sh"
+  ignore_errors: true
+

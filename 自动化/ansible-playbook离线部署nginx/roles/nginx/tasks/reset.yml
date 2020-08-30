@@ -1,0 +1,11 @@
+---
+tasks:
+  - name: Stopping Nginx service
+    service:
+      name: Nginx.service
+      state: stopped
+    ignore_errors: yes
+  - name: "deleting local directory /usr/local/nginx"
+    file:
+      path: "/usr/local/nginx"
+      state: absent   

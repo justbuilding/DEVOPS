@@ -1,0 +1,2 @@
+[test]
+192.168.23.135:22 ansible_ssh_user=root ansible_ssh_pass="密码"

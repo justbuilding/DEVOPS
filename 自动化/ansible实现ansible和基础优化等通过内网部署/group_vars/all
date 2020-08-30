@@ -1,0 +1,10 @@
+---
+# 定义目标服务器ssh公私钥等相关信息
+
+ansible_ssh_extra_args: '-o StrictHostKeyChecking=no'
+ansible_ssh_pipelining: True
+ansible_ssh_private_key_file: "{{install_home}}/id_rsa"
+
+install_home: "{{inventory_dir}}"
+pkg_home: "{{install_home}}/pkg"
+

@@ -1,0 +1,17 @@
+- hosts: web
+  remote_user: root
+  tasks:
+  - name: create_group  #任务1,新建组
+    group: name={{ item }}
+    with_items:
+    - group1
+    - group2
+    - group3
+    tags: group  # 暂时不用,一会删除组的时候会用到
+  - name: create_user  #任务2,新建用户且指定组
+    user: name={{ item.user }}
+    with_items:
+    - {user: user1,group: group1}
+    - {user: user2,group: group2}
+    - {user: user3,group: group3}
+    tags: user  # 暂时不用,一会删除组的时候会用到

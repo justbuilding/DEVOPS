@@ -1,0 +1,15 @@
+- name: "check ssh key"
+  stat:
+    path: "/root/.ssh/id_rsa"
+  register: ssh_file
+  delegate_to: localhost
+  run_once: true
+
+- include_tasks: generate_ssh_key_file_and_prepare_sshpass.yml
+  when: ssh_file.stat.exists == False
+
+- name: push ssh pub key
+  authorized_key:
+    user: "root"
+    key: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
+    state: present

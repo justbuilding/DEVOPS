@@ -1,0 +1,21 @@
+- hosts: test
+  remote_user: root
+  tasks:
+  - name: 复制文件
+    copy:
+      src: /root/a.sh
+      dest: "/root/a.sh"
+      owner: root
+      group: root
+      mode: 0644
+  - name: 输出主机名
+    shell: a=`hostname`
+    shell: hostname
+    register: info
+  - debug: msg="主机名为{{info.stdout}}"
+
+  - name: 判断是否含下划线
+    shell: sh a.sh
+    register: info
+  - name: 输出结果
+    debug: msg="{{info.stdout}}"

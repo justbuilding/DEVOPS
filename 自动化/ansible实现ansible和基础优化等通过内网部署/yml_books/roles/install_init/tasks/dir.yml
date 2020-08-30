@@ -1,0 +1,6 @@
+- name: create some dirs
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+  - "{{install_home}}"

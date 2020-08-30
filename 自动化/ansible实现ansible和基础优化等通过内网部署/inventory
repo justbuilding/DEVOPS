@@ -1,0 +1,9 @@
+[server_ips]
+192.168.227.129
+192.168.227.130
+192.168.227.131
+
+[all:vars]
+ansible_ssh_user=root
+ansible_ssh_port=22
+server_password="passwd123"
