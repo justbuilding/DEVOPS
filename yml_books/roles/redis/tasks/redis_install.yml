@@ -3,31 +3,16 @@
     path: "{{ item }}"
     state: directory
   with_items:
-  - "{{install_home}}/docker"
+  - "{{install_home}}/redis"
 
-- name: copy docker.tar.xz
+- name: copy redis.tar.xz
   copy:
-    src: "{{install_home}}/pkg/docker/{{item}}"
-    dest: "{{install_home}}/docker/{{item}}"
+    src: "{{install_home}}/pkg/redis/{{item}}"
+    dest: "{{install_home}}/redis/{{item}}"
     force: no
     mode: 0755
   with_items:
-  - docker.tar.xz
-
-- name: copy run_docker.sh
-  copy:
-    src: "{{install_home}}/yml_books/roles/install_docker/templates/{{item}}"
-    dest: "{{install_home}}/docker/{{item}}"
-    force: yes
-    mode: 0755
-  with_items:
-  - run_docker.sh
-
-- name: tar docker.tar.xz
-  unarchive:
-    src: "{{install_home}}/docker/docker.tar.xz"
-    dest: "{{install_home}}/docker/"
-    remote_src: True
+  - redis.tar.xz
 
 - name: install docker
   shell: "rpm -Uvh {{install_home}}/docker/*.rpm"

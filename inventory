@@ -3,7 +3,18 @@
 192.168.227.130
 192.168.227.131
 
+[redis:children]
+server_ips
+
 [all:vars]
 ansible_ssh_user=root
 ansible_ssh_port=22
 server_password="passwd123"
+
+# redis config
+redis_master_ip="{{groups['redis'][0]}}"
+redis_port=6379
+redis_name="default"
+redis_password="ff07777b10b15kf90d66d35baa81888e"
+redis_slave_port=16379
+redis_sentinel_port=26379

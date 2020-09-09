@@ -1,4 +1,4 @@
-- hosts: "{{ server_ips|default('all')}}"
+- hosts: redis
   gather_facts: no
   roles:
   - redis

@@ -3,7 +3,7 @@
   register: docker_install
   failed_when: "'command not found' in docker_install.stderr"
 
-- name: install docker if not exits
-  when: docker_install.rc != 0
-  include_tasks: install.yml
+- name: install redis if docker exits
+  when: docker_install.rc = 0
+  include_tasks: redis_install.yml
 
