@@ -4,6 +4,12 @@
   failed_when: "'command not found' in docker_install.stderr"
 
 - name: install redis if docker exits
-  when: docker_install.rc = 0
+  when: docker_install.rc == 0
   include_tasks: redis_install.yml
+  vars:
+    redis_node_name: "redis_{{loop_role}}"
+    redis_work_dir: "/data/redis_{{loop_role}}"
+  with_items: "{{redis_roles}}"
+  loop_control:
+    loop_var: loop_role
 

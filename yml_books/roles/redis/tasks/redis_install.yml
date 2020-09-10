@@ -1,41 +1,25 @@
 - name: create some dirs
   file:
-    path: "{{ item }}"
+    path: "{{item}}"
     state: directory
   with_items:
   - "{{install_home}}/redis"
+  - "{{redis_work_dir}}"
 
-- name: copy redis.tar.xz
+- name: copy redis.tar and redis_init.sh
   copy:
     src: "{{install_home}}/pkg/redis/{{item}}"
     dest: "{{install_home}}/redis/{{item}}"
     force: no
     mode: 0755
   with_items:
-  - redis.tar.xz
+  - redis.tar
+  - redis_init.sh
 
-- name: install docker
-  shell: "rpm -Uvh {{install_home}}/docker/*.rpm"
-  ignore_errors: true
+- name: translate templates to conf
+  template:
+    src: "{{install_home}}/yml_books/roles/redis/templates/{{redis_node_name}}.conf.j2"
+    dest: "{{redis_work_dir}}/redis.conf"
 
-- name: copy docker service
-  copy:
-    src: "{{install_home}}/yml_books/roles/install_docker/templates/{{item}}"
-    dest: "/etc/systemd/system/{{item}}"
-    force: no
-    mode: 0644
-    backup: yes
-  with_items:
-  - docker.service
-
-- name: copy daemon.json to accelerate
-  copy:
-    src: "{{install_home}}/yml_books/roles/install_docker/templates/{{item}}"
-    dest: "/etc/docker/{{item}}"
-    force: no
-    mode: 0644
-  with_items:
-  - daemon.json
-
-- name: run docker
-  shell: "sh {{install_home}}/docker/run_docker.sh" 
+- name: run redis
+  shell: "sh {{install_home}}/redis/redis_init.sh" 

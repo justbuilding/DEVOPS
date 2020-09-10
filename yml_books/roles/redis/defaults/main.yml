@@ -1,10 +1,4 @@
-install_service_name: redis
-decompression_dir: "{{install_home}}/{{install_service_name}}"
-
 # inventory_hostname是Ansible所识别的当前正在运行task的主机的主机名
 # 这里为redis定义的第一个ip，第一个ip会取role为master，其他为slave
 who_role: "{{'master' if groups['redis'][0] == inventory_hostname else 'slave'}}"
 redis_roles: "{{role.split(',') if role is defined else ['sentinel', who_role]}}"
-
-
-
