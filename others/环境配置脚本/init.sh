@@ -26,7 +26,7 @@ cp /etc/yum.repos.d/CentOS-Base.repo  /etc/yum.repos.d/CentOS-Base.repo.$(date -
 wget http://mirrors.163.com/.help/CentOS$sys_byte-Base-163.repo &&  rm -f CentOS-Base.repo && mv CentOS$sys_byte-Base-163.repo CentOS-Base.repo
 yum clean all 
 yum makecache 
-yum update
+yum update -y
 echo "*******************************************************************************"
 echo "配置yum源为163源成功，可查看cat /etc/yum.repos.d/CentOS-Base.repo"
 echo "*******************************************************************************"
@@ -35,9 +35,9 @@ yum install yum-plugin-fastestmirror -y
 #echo "*******************************************************************************"
 #echo " 配置epel源"
 echo "*******************************************************************************"
-yum install -y epel-release
+wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo
 echo "*******************************************************************************"
-echo " 配置epel源成功"
+echo " 配置阿里云的epel源成功"
 echo "*******************************************************************************"
 
 echo "*******************************************************************************"
